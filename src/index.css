@@ -122,3 +122,36 @@
 @utility bg-gradient-primary {
   background-image: linear-gradient(to bottom, #6a1b9a, #d32f2f);
 }
+
+/* Hero background gradient used by the HeroSection component */
+.hero-gradient {
+  position: absolute;
+  inset: 0;
+  /* multi-stop radial gradient to emulate the provided image */
+  background-image: radial-gradient(
+    40% 60% at 50% 50%,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 245, 247, 0.95) 8%,
+    rgba(246, 206, 210, 0.7) 20%,
+    rgba(204, 102, 153, 0.45) 40%,
+    rgba(133, 64, 250, 0.3) 65%,
+    rgba(72, 20, 160, 0.18) 100%
+  );
+  filter: blur(72px);
+  transform: scale(1.02);
+  z-index: -20;
+  pointer-events: none;
+}
+
+.hero-gradient--accent {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    25% 30% at 12% 20%,
+    rgba(118, 54, 180, 0.22),
+    transparent 40%
+  );
+  filter: blur(120px);
+  z-index: -25;
+  pointer-events: none;
+}
