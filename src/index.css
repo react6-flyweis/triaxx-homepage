@@ -118,3 +118,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+@utility bg-gradient-primary {
+  background-image: linear-gradient(to bottom, #6a1b9a, #d32f2f);
+}
