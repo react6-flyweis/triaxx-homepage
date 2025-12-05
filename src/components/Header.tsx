@@ -46,12 +46,14 @@ export default function Header() {
 
       <div>{/* cta placeholder (e.g., sign in / button) */}</div>
 
-      <Button variant="outline" className="rounded-full">
-        <span>Register Now</span>
-        <div className="size-6 bg- flex items-center justify-center rounded-full ">
-          <ArrowUpRight className="size-4 bg-transparent bg-primary-gradient text-clip" />
-        </div>
-      </Button>
+      <div className="bg-gradient-primary rounded-full  p-0.5">
+        <Button variant="outline" className="bg-white rounded-full ">
+          <span>Register Now</span>
+          <div className="size-7 bg-white flex items-center justify-center rounded-full ">
+            <ArrowUpRight className="size-4 bg-transparent bg-primary-gradient text-clip" />
+          </div>
+        </Button>
+      </div>
     </header>
   );
 }
