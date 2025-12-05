@@ -1,5 +1,11 @@
+import HeroSection from "./components/HeroSection";
+
 function App() {
-  return <>{/*  */}</>;
+  return (
+    <div className="">
+      <HeroSection />
+    </div>
+  );
 }
 
 export default App;
