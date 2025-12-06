@@ -6,25 +6,22 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
+  // CarouselPrevious,
+  // CarouselNext,
 } from "./ui/carousel";
+import { RepeatIcon } from "lucide-react";
 
 export default function FeaturesSection() {
   return (
-    <div className="flex flex-col items-center gap-6 py-20   space-y-10">
+    <div className="flex flex-col items-center gap-6 py-20   space-y-10 max-w-6xl mx-auto">
       <h3 className="text-5xl">
         Key Features to grow
         <span className="ml-1 text-primary">10X</span>
       </h3>
       {/* carousel */}
-      <Carousel
-        // Embla options: align to start and contain scroll to trim snaps
-        opts={{ align: "start", containScroll: "trimSnaps" }}
-        className="max-w-5xl"
-      >
-        <CarouselPrevious />
-        <CarouselContent className="">
+      <Carousel opts={{ align: "start", containScroll: "trimSnaps" }}>
+        {/* <CarouselPrevious /> */}
+        <CarouselContent className="w-full">
           {[
             {
               title: "Employee Management",
@@ -50,8 +47,11 @@ export default function FeaturesSection() {
               image: mobileRemoteAccessImage,
             },
           ].map((feature) => (
-            <CarouselItem key={feature.title}>
-              <div className="relative w-72 h-96 rounded-md overflow-hidden">
+            <CarouselItem
+              key={feature.title}
+              className="basis-full sm:basis-1/2 lg:basis-1/4"
+            >
+              <div className="relative w-60 h-96 rounded-md overflow-hidden">
                 {/* image */}
                 <img
                   src={feature.image}
@@ -69,16 +69,20 @@ export default function FeaturesSection() {
                 />
 
                 {/* content */}
-                <div className="absolute bottom-4 left-4 z-20">
-                  <h4 className="text-xl font-semibold text-white">
+                <div className="flex w-full justify-between items-end gap-5 absolute bottom-4 left-0 px-2 z-20">
+                  <h4 className="text-lg font-semibold text-white">
                     {feature.title}
                   </h4>
+
+                  <div className="shrink-0 bg-white rounded-full flex justify-center items-center size-8">
+                    <RepeatIcon />
+                  </div>
                 </div>
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselNext />
+        {/* <CarouselNext /> */}
       </Carousel>
     </div>
   );
