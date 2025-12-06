@@ -1,143 +1,107 @@
 import { Button } from "@/components/ui/button";
+import PlanCard from "./PlanCard";
+import Loading from "./Loading";
+import api from "@/lib/api";
+import { useEffect, useState } from "react";
 
-const FEATURES = [
-  "Unlimited Orders",
-  "Monthly Renewals",
-  "Unlimited Devices",
-  "Live Kitchen Orders",
-];
-
-function FeatureList() {
-  return (
-    <ul className="space-y-2 mt-6">
-      {FEATURES.map((f) => (
-        <li key={f} className="flex items-start gap-2 text-sm">
-          <span className="mt-0.5 inline-flex h-4 w-4 flex-none items-center justify-center rounded-sm bg-pink-500 text-white">
-            <svg
-              width="10"
-              height="10"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M20 6L9 17l-5-5"
-                stroke="currentColor"
-                strokeWidth="3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </span>
-          <span className="text-slate-700">{f}</span>
-        </li>
-      ))}
-    </ul>
-  );
+interface PlanItem {
+  _id: string;
+  name: string;
+  plan_duration?: string;
+  plan_facility?: string;
+  Status?: boolean;
+  CreateBy?: { user_id?: number; Name?: string; email?: string };
+  CreateAt?: string;
+  UpdatedAt?: string;
+  Plan_id?: number;
+  UpdatedBy?: number;
 }
 
 export default function PlanSection() {
+  const [plans, setPlans] = useState<PlanItem[] | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let mounted = true;
+
+    async function fetchPlans() {
+      setLoading(true);
+      setError(null);
+      try {
+        // The api instance uses `baseURL` from env. The endpoint from the backend
+        // is `/api/master/plan/getall` (baseURL should be configured).
+        const res = await api.get("/api/master/plan/getall");
+        const data = res?.data;
+        if (!mounted) return;
+        if (data && Array.isArray(data.data)) {
+          setPlans(data.data as PlanItem[]);
+        } else {
+          setPlans([]);
+        }
+      } catch (err: any) {
+        setError(err?.message || "Failed to load plans");
+        setPlans([]);
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    }
+
+    fetchPlans();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  if (loading) return <Loading />;
+
   return (
-    <section className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-start justify-between mb-12">
-          <h2 className="text-4xl font-bold">Plans for every Business</h2>
-          <Button
-            variant="outline"
-            className="rounded-full px-6 py-2 border-pink-300 text-pink-600 hover:bg-pink-50"
-          >
-            Register now
-          </Button>
+    <section id="subscriptions" className="py-16">
+      <div className="max-w-6xl mx-auto ">
+        <div className="flex items-start justify-between mb-28">
+          <h2 className="text-4xl ">Plans for every Business</h2>
+          <div className="bg-gradient-primary p-0.5 rounded-md">
+            <Button variant="outline" className="px-6 py-2 rounded-md">
+              <span className="bg-clip-text bg-gradient-primary text-transparent">
+                Register now
+              </span>
+            </Button>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-          {/* Free */}
-          <div className="rounded-3xl border-2 border-pink-200 bg-white p-6 flex flex-col self-end">
-            <div>
-              <h3 className="text-pink-600 font-semibold text-base mb-2">
-                Free
-              </h3>
-              <p className="text-xs text-slate-600 leading-relaxed min-h-[60px]">
-                Sell in person, online, over the phone, or on the go. Only pay
-                when you take a payment.
-              </p>
+        {error ? <div className="text-sm text-red-600">{error}</div> : null}
 
-              <div className="mt-6 mb-4">
-                <div className="text-4xl font-bold">$0/mo.</div>
-                <div className="text-xs text-slate-400 mt-1">
-                  + processing fees
-                </div>
-              </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-center">
+          {plans && plans.length > 0 ? (
+            plans.map((p) => {
+              const features = p.plan_facility
+                ? p.plan_facility.split(",").map((s) => s.trim())
+                : [];
 
-              <FeatureList />
+              const title = p.name || "Plan";
+              const price = p.plan_duration || "Custom";
+
+              // Highlight if Plan_id === 1 (sample data indicates Premium with id 1)
+              const highlight = p.Plan_id === 1;
+
+              return (
+                <PlanCard
+                  key={p._id}
+                  title={title}
+                  description={p.plan_facility || ""}
+                  price={price}
+                  priceNote={p.Status ? "+ active" : undefined}
+                  features={features}
+                  highlight={highlight}
+                />
+              );
+            })
+          ) : (
+            <div className="col-span-1 md:col-span-3 text-center text-slate-600">
+              No plans available at the moment.
             </div>
-
-            <div className="mt-6">
-              <Button
-                variant="outline"
-                className="w-full rounded-lg h-11 border-slate-300 text-slate-700 hover:bg-slate-50 text-sm"
-              >
-                Talk to a POS Expert ↗
-              </Button>
-            </div>
-          </div>
-
-          {/* Plus (highlight - larger) */}
-          <div className="rounded-3xl border-2 border-pink-300 bg-white p-8 flex flex-col shadow-md -mt-4 md:-mt-8">
-            <div>
-              <h3 className="text-pink-600 font-semibold text-lg mb-2">Plus</h3>
-              <p className="text-sm text-slate-600 leading-relaxed min-h-[60px]">
-                Get advanced features designed specifically for your industry.
-                Upgrade or cancel anytime.
-              </p>
-
-              <div className="mt-6 mb-4">
-                <div className="text-5xl font-bold">$29+/mo.</div>
-                <div className="text-xs text-slate-400 mt-1">
-                  + processing fees
-                </div>
-              </div>
-
-              <FeatureList />
-            </div>
-
-            <div className="mt-6">
-              <Button className="w-full h-12 bg-gradient-to-r from-pink-500 to-red-500 text-white rounded-lg hover:from-pink-600 hover:to-red-600">
-                Talk to a POS Expert ↗
-              </Button>
-            </div>
-          </div>
-
-          {/* Premium / Custom */}
-          <div className="rounded-3xl border-2 border-pink-200 bg-white p-6 flex flex-col self-end">
-            <div>
-              <h3 className="text-pink-600 font-semibold text-base mb-2">
-                Premium
-              </h3>
-              <p className="text-xs text-slate-600 leading-relaxed min-h-[60px]">
-                Talk with our team to build a plan that meets the complexity of
-                your operations, and cloud access.
-              </p>
-
-              <div className="mt-6 mb-4">
-                <div className="text-4xl font-bold">Custom</div>
-                <div className="text-xs text-slate-400 mt-1">
-                  + processing fees
-                </div>
-              </div>
-
-              <FeatureList />
-            </div>
-
-            <div className="mt-6">
-              <Button
-                variant="outline"
-                className="w-full rounded-lg h-11 border-slate-300 text-slate-700 hover:bg-slate-50 text-sm"
-              >
-                Talk to a POS Expert ↗
-              </Button>
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </section>
