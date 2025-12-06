@@ -1,3 +1,4 @@
+import TalkToSpecialistDialog from "./TalkToSpecialist";
 import { Button } from "./ui/button";
 import buisnessWomenImage from "@/assets/buisness-women.gif";
 
@@ -25,12 +26,14 @@ export default function TeamTriaxx() {
 
             {/* cta action */}
             <div className="mt-8 flex items-center gap-6">
-              <Button
-                size="lg"
-                className="bg-gradient-primary rounded h-12 px-10"
-              >
-                <span className="font-normal">Talk to Pos Specialist</span>
-              </Button>
+              <TalkToSpecialistDialog>
+                <Button
+                  size="lg"
+                  className="bg-gradient-primary rounded h-12 px-10"
+                >
+                  <span className="font-normal">Talk to Pos Specialist</span>
+                </Button>
+              </TalkToSpecialistDialog>
 
               <Button
                 variant="ghost"
