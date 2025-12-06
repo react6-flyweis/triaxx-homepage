@@ -1,6 +1,6 @@
 export default function ExperienceSection() {
   return (
-    <section className="w-full py-20">
+    <section id="about" className="w-full py-20">
       <div className="grid grid-cols-1 md:grid-cols-2 w-full">
         {/* Top-left: big title (black) */}
         <div className="bg-black text-white flex items-center justify-center px-12 py-24">
