@@ -15,7 +15,7 @@ function FeatureItem({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 hover:bg-gradient-primary group hover:text-white p-2 rounded transition-all">
       <div className="size-18 p-1 rounded-full bg-gradient-primary flex items-center justify-center">
         <div className="w-full h-full rounded-full bg-background flex items-center justify-center">
           {children}
@@ -23,7 +23,7 @@ function FeatureItem({
       </div>
       <div className="space-y-1">
         <div className="text-base font-bold">{title}</div>
-        <div className="text-sm text-muted-foreground max-w-xs">
+        <div className="text-sm transition-all group-hover:text-white text-muted-foreground max-w-xs">
           {description}
         </div>
       </div>
