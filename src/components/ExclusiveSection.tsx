@@ -1,4 +1,5 @@
 import exclusiveImage from "../assets/exclusive.png";
+import TalkToSpecialistDialog from "./TalkToSpecialist";
 import { Button } from "./ui/button";
 
 export default function ExclusiveSection() {
@@ -32,12 +33,14 @@ export default function ExclusiveSection() {
             </p>
 
             <div className="mt-4">
-              <Button
-                size="lg"
-                className="bg-gradient-primary rounded-lg h-14 px-12"
-              >
-                <span className="font-medium">Talk to a POS Specialist</span>
-              </Button>
+              <TalkToSpecialistDialog>
+                <Button
+                  size="lg"
+                  className="bg-gradient-primary rounded-lg h-14 px-12"
+                >
+                  <span className="font-medium">Talk to a POS Specialist</span>
+                </Button>
+              </TalkToSpecialistDialog>
             </div>
           </div>
 

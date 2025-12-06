@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import managementIcon from "@/assets/management.svg";
 import trackIcon from "@/assets/track.svg";
 import forcastIcon from "@/assets/forcast.svg";
+import TalkToSpecialistDialog from "./TalkToSpecialist";
 
 function FeatureItem({
   title,
@@ -82,9 +83,11 @@ export default function InventorySection() {
       </div>
       {/* CTA action */}
       <div className="flex pt-20">
-        <Button size="lg" className="bg-gradient-primary rounded h-12 px-10">
-          <span className="font-normal">Talk to Pos Specialist</span>
-        </Button>
+        <TalkToSpecialistDialog>
+          <Button size="lg" className="bg-gradient-primary rounded h-12 px-10">
+            <span className="font-normal">Talk to Pos Specialist</span>
+          </Button>
+        </TalkToSpecialistDialog>
         <Button variant="ghost" className="h-12 px-10 text-lg">
           <div className="border-t w-5"></div>
           <span className="font-normal"> Start Free Trial</span>
