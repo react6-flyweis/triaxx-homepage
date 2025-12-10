@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import PlanCard from "./PlanCard";
-import Loading from "./Loading";
+import PlanSkeletonCard from "./PlanSkeletonCard";
 import api from "@/lib/api";
 import { useEffect, useState } from "react";
 
@@ -54,7 +54,32 @@ export default function PlanSection() {
     };
   }, []);
 
-  if (loading) return <Loading />;
+  if (loading) {
+    const skeletons = [1, 2, 3];
+
+    return (
+      <section id="subscriptions" className="py-16">
+        <div className="max-w-6xl mx-auto ">
+          <div className="flex items-start justify-between mb-28">
+            <h2 className="text-4xl ">Plans for every Business</h2>
+            <div className="bg-gradient-primary p-0.5 rounded-md">
+              <Button variant="outline" className="px-6 py-2 rounded-md">
+                <span className="bg-clip-text bg-gradient-primary text-transparent">
+                  Register now
+                </span>
+              </Button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-center">
+            {skeletons.map((s) => (
+              <PlanSkeletonCard key={s} />
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="subscriptions" className="py-16">
