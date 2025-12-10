@@ -1,5 +1,6 @@
 import connect1 from "@/assets/connect-1.png";
 import connect2 from "@/assets/connect-2.png";
+import TalkToSpecialistDialog from "./TalkToSpecialist";
 
 export default function ConnectSection() {
   return (
@@ -27,9 +28,11 @@ export default function ConnectSection() {
                 answered.
               </h3>
 
-              <button className="py-2 px-4 border border-white rounded-md bg-transparent hover:bg-white/10 transition">
-                Talk to a POS Specialist
-              </button>
+              <TalkToSpecialistDialog>
+                <button className="py-2 px-4 border border-white rounded-md bg-transparent hover:bg-white/10 transition">
+                  Talk to a POS Specialist
+                </button>
+              </TalkToSpecialistDialog>
             </div>
           </article>
 
@@ -45,9 +48,11 @@ export default function ConnectSection() {
                 Get started with a free Trial
               </h3>
 
-              <button className="py-2 px-4 border border-white rounded-md bg-transparent hover:bg-white/10 transition">
-                Talk to a POS Specialist
-              </button>
+              <TalkToSpecialistDialog>
+                <button className="py-2 px-4 border border-white rounded-md bg-transparent hover:bg-white/10 transition">
+                  Talk to a POS Specialist
+                </button>
+              </TalkToSpecialistDialog>
             </div>
           </article>
         </div>
